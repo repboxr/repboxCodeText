@@ -4,7 +4,7 @@ Title: Extracting purely text based information from supplement code
 Version: 0.1
 Author: Sebastian Kranz (Ulm University)
 Maintainer: Sebastian Kranz <sebastian.kranz@uni-ulm.de>
-Description: 
+Description: Extracting purely text based information from supplement code
 License: GPL >= 3.0
 Remotes: skranz/stringtools
 Depends: dplyr, restorepoint, stringtools, stringi, repboxDB
