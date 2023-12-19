@@ -1,19 +1,19 @@
 example = function() {
   library(repboxCodeText)
   library(repboxHtml)
-  project.dir = "/home/rstudio/repbox/projects_reg/testart"
-  project.dir = "~/repbox/projects_reg/aejapp_3_2_2"
-  code_project_find_refs(project.dir)
+  project_dir = "/home/rstudio/repbox/projects_reg/testart"
+  project_dir = "~/repbox/projects_reg/aejapp_3_2_2"
+  code_project_find_refs(project_dir)
 
-  rstudioapi::filesPaneNavigate(project.dir)
+  rstudioapi::filesPaneNavigate(project_dir)
 
-  html.dir = file.path(project.dir,"reports")
+  html.dir = file.path(project_dir,"reports")
   rstudioapi::filesPaneNavigate(html.dir)
 }
 
-code_project_find_refs = function(project.dir, parcels = NULL) {
+code_project_find_refs = function(project_dir, parcels = NULL) {
   restore.point("code_project_find_refs")
-  parcels = regdb_load_parcels(project.dir, c("stata_source","stata_cmd"))
+  parcels = regdb_load_parcels(project_dir, c("stata_source","stata_cmd"))
   source_df = parcels$stata_source$script_source
   if (NROW(source_df)==0) return(parcels)
 
@@ -25,12 +25,12 @@ code_project_find_refs = function(project.dir, parcels = NULL) {
   })
   cmd_ref = bind_rows(res_li) %>%
     filter(!is.na(ref_type)) %>%
-    mutate(artid = basename(project.dir))
+    mutate(artid = basename(project_dir))
 
   regdb_check_data(cmd_ref, "stata_cmd_tab_fig_ref")
 
   parcels$stata_cmd_tab_fig_ref = list(stata_cmd_tab_fig_ref = cmd_ref)
-  regdb_save_parcels(parcels["stata_cmd_tab_fig_ref"], file.path(project.dir, "repbox","regdb"))
+  regdb_save_parcels(parcels["stata_cmd_tab_fig_ref"], file.path(project_dir, "repbox","regdb"))
 
   parcels
 }
