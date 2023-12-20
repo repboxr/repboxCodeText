@@ -13,7 +13,7 @@ example = function() {
 
 code_project_find_refs = function(project_dir, parcels = NULL) {
   restore.point("code_project_find_refs")
-  parcels = regdb_load_parcels(project_dir, c("stata_source","stata_cmd"))
+  parcels = repdb_load_parcels(project_dir, c("stata_source","stata_cmd"))
   source_df = parcels$stata_source$script_source
   if (NROW(source_df)==0) return(parcels)
 
@@ -27,10 +27,10 @@ code_project_find_refs = function(project_dir, parcels = NULL) {
     filter(!is.na(ref_type)) %>%
     mutate(artid = basename(project_dir))
 
-  regdb_check_data(cmd_ref, "stata_cmd_tab_fig_ref")
+  repdb_check_data(cmd_ref, "stata_cmd_tab_fig_ref")
 
   parcels$stata_cmd_tab_fig_ref = list(stata_cmd_tab_fig_ref = cmd_ref)
-  regdb_save_parcels(parcels["stata_cmd_tab_fig_ref"], file.path(project_dir, "repbox","regdb"))
+  repdb_save_parcels(parcels["stata_cmd_tab_fig_ref"], file.path(project_dir, "repbox","repdb"))
 
   parcels
 }
