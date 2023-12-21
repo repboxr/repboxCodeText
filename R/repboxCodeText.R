@@ -30,7 +30,7 @@ code_project_find_refs = function(project_dir, parcels = NULL) {
   repdb_check_data(cmd_ref, "stata_cmd_tab_fig_ref")
 
   parcels$stata_cmd_tab_fig_ref = list(stata_cmd_tab_fig_ref = cmd_ref)
-  repdb_save_parcels(parcels["stata_cmd_tab_fig_ref"], file.path(project_dir, "repbox","repdb"))
+  repdb_save_parcels(parcels["stata_cmd_tab_fig_ref"], file.path(project_dir, "repdb"))
 
   parcels
 }
