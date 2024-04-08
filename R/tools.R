@@ -22,6 +22,15 @@ my_rank = function(x) {
 
 loc_sep_lines = function(txt, loc) {
   restore.point("loc_sep_lines")
+
+  if (NROW(loc)==0) {
+    loc$row = integer(0)
+    loc$col_start = integer(0)
+    loc$col_end = integer(0)
+    return(loc)
+  }
+
+
   lines_loc = stri_locate_all_fixed(txt, "\n")[[1]]
   lines_start = c(1, lines_loc[,1]+1)
   loc$row = findInterval(loc$start, lines_start)
