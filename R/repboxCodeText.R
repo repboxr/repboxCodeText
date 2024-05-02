@@ -19,13 +19,18 @@ code_project_find_refs = function(project_dir, parcels = NULL) {
 
   cmd_df = parcels$stata_cmd$stata_cmd
 
-  i = 1
+  i = 2
   res_li = lapply(seq_rows(source_df), function(i) {
-    code_find_table_figure_ref(source_df[i,], cmd_df)
+    fp = source_df$file_path[i]
+    code_find_table_figure_ref(source_df[i,], cmd_df %>% filter(file_path==fp))
   })
   cmd_ref = bind_rows(res_li) %>%
     filter(!is.na(ref_type)) %>%
     mutate(artid = basename(project_dir))
+
+  if (any(duplicated(cmd_ref[c("file_path","line")]))) {
+    stop("Repbox found multiple table or figure references for a code line. This should not be the case and can lead to errors in later computations.")
+  }
 
   repdb_check_data(cmd_ref, "stata_cmd_tab_fig_ref")
 
